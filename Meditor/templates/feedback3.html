@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'file.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNF Feedback Form</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Feedback Form</h1>
+        <div class="star-widget">
+            <input type="radio" onclick="func('5-rating', 'Excellent')" name="rate" id="rate-5">
+            <label for="rate-5" class="fas fa-star"></label>
+            <input type="radio" onclick="func('4-rating', 'Very Good')" name="rate" id="rate-4">
+            <label for="rate-4" class="fas fa-star"></label>
+            <input type="radio" onclick="func('3-rating', 'Good')" name="rate" id="rate-3">
+            <label for="rate-3" class="fas fa-star"></label>
+            <input type="radio" onclick="func('2-rating', 'poor')" name="rate" id="rate-2">
+            <label for="rate-2" class="fas fa-star"></label>
+            <input type="radio" onclick="func('1-rating', 'very-poor')" name="rate" id="rate-1">
+            <label for="rate-1" class="fas fa-star"></label> 
+        </div>
+        <h2 id="descValue"></h2>
+        <form id="other-area" enctype = "multipart/form-data" method="POST" name="form">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="RateValue" id="id_RateValue" required>
+            <input type="text" class="" id="" placeholder="Your Name" name = "Name" required/> <br>
+            <div id= "services-used">
+                <span>Service Used</span>
+                <a onclick="openMyService()" id="plus-button"><b class="fa fa-plus"></b></a>
+            </div>
+            <div id="MyServices">
+                <div id="rateNarration">
+                    <span>Rate Narration</span>
+                    <select id="Rate-Narration" name="RateNarration" required>
+                        <option value="">Rate</option>
+                        <option value="5-rating" name="RateNarration">Excellent</option>
+                        <option value="4-rating" name="RateNarration">Very Good</option>
+                        <option value="3-rating" name="RateNarration">Good</option>
+                        <option value="2-rating" name="RateNarration">Average</option>
+                        <option value="1-rating" name="RateNarration">Poor</option>
+                      </select>
+                </div>
+                <div id="rateConversion">
+                    <span>Rate Conversion</span>
+                    <select id="Rate-Conversion" name="RateConversion" required>
+                        <option value="">Rate</option>
+                        <option value="5-rating" name="RateConversion">Excellent</option>
+                        <option value="4-rating" name="RateConversion">Very Good</option>
+                        <option value="3-rating" name="RateConversion">Good</option>
+                        <option value="2-rating" name="RateConversion">Average</option>
+                        <option value="1-rating" name="RateConversion">Poor</option>
+                    </select>
+                </div>
+            </div>
+            
+            <input type="text" class="" id="" placeholder="XYZ@email.com" name = "Email" required/> <br>
+            <textarea name="Description" id="" cols="60" rows="10" placeholder=" Say Somthing..." required></textarea><br>
+            <button id="submit" type="submit">Submit</button>
+        </form>
+        
+    </div>
+</body>
+<script>
+    function openMyService(){
+        if(document.getElementById('MyServices').style.display == 'none'){
+            document.getElementById('MyServices').style.display = 'block';
+            document.getElementById("plus-button").innerHTML = '<b class="fa fa-minus"></b>';
+        }else{
+            document.getElementById('MyServices').style.display = 'none'         
+            document.getElementById("plus-button").innerHTML = '<b class="fa fa-plus"></b>'
+        }
+        
+    }
+    
+    document.getElementById('id_RateValue').style.display='none';
+    function func(rateValue, desc){
+        var tagValue = document.getElementById('descValue').innerText = desc;
+        var Value = document.getElementById('id_RateValue').value = rateValue;
+        document.getElementById('other-area').style.display ='block';
+
+    }
+    
+</script>
+</html>

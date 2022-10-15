@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="password" name="" id="inputtext">
+    <span id="message" style="color: green;"></span>
+    <span id="message2" style="color: red;"></span>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+document.getElementById('inputtext').addEventListener('input',function(e){ 
+var passw=  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+if(e.target.value.match(passw)) 
+{ 
+document.getElementById('message').innerHTML="password strength : Nice"
+document.getElementById('message2').innerHTML=""
+return true;
+}
+else
+{ 
+    document.getElementById('message2').innerHTML="password strength : Weak"
+    document.getElementById('message').innerHTML=""
+return false;
+}
+    
+}) 
+
+</script>
+</html>

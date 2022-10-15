@@ -1,0 +1,80 @@
+{% extends 'mnfapp/base.html' %}
+{% load static %}
+{% block title %}
+ScriptEeditor  
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<!--  CSS  -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static '/script.js' %}" type="text/javascript"></script> 
+<link rel="stylesheet" href="{% static 'main.css'%}">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="{%static 'plugin/tinymce/tinymce.min.js'%}"></script>
+<script src="{%static 'plugin/tinymce/init-tinymce.js'%}" ></script>
+
+
+<!--HTML-->
+
+
+<div class="grid-container">
+  <div class="Scripts-list">
+      <div class="myblog-container">
+          <h2>My Edited Scripts</h2>
+          {% if webpp_list %}
+            {% for us in webpp_list %}
+                  <div class="content">
+                          <a href="{{us.id}}" type="submit">{{us.ScriptName}}</a>
+                  </div>
+            {% endfor %}
+      
+          {% else %}
+            <p style="color: red;font-size: 1.2em;">No Data is available</p>
+          {% endif %}
+      
+      </div>
+  </div>
+  <div class="Script-editor">
+      <h2>Script Editor</h2>
+      <form class="form" name="form2" enctype = "multipart/form-data" action = "/scripteditor" method = "POST">
+          {% csrf_token %}
+          {{form}}
+          <button  type = "submit" value = "save" >save</button>
+      </form>
+  </div>        
+</div>
+
+
+<!--JAVASCRIPT-->
+
+
+<script>
+  var myfile="";
+  $('#MyScript').on( 'change', function() {
+     myfile= $( this ).val();
+     var ext = myfile.split('.').pop();
+     if(ext=="pdf"){
+     } else{
+         alert("only PDF files allowed");
+         location.reload()
+     }
+  });
+
+ 
+  </script>
+<script>
+
+
+</script>
+
+{% endblock %}
+
+

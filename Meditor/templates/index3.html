@@ -1,0 +1,111 @@
+{% extends 'mnfapp/base.html' %}
+{% load static %}
+{% block title %}
+ScriptEeditor  
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<!--  CSS  -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static '/script.js' %}" type="text/javascript"></script> 
+<link rel="stylesheet" href="{% static 'main.css'%}">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="{%static 'plugin/tinymce/tinymce.min.js'%}"></script>
+<script src="{%static 'plugin/tinymce/init-tinymce3.js'%}" ></script>
+
+<style>
+
+  #myId{
+    position: absolute;
+    border: solid rgb(121, 121, 121) 1px;
+    padding: 4px;
+    margin: 4px;
+    background-color: #fff;
+  }
+  #myId button{
+    background: white;
+    color: black;
+    border: 0;
+    text-align: center;
+    padding: 3px;
+  }
+  #myId button:hover{
+    background-color: rgba(255, 0, 34, 0.918);
+    color: white;
+
+  }
+</style>
+<!--HTML-->
+
+
+<div class="grid-container" oncontextmenu="return false;">
+  <div class="Scripts-list">
+      <div class="myblog-container">
+          <h2>My Edited Scripts</h2>
+          {% if webpp_list %}
+            {% for us in webpp_list %}
+                  <div class="content">
+                          <a href="{{us.translated_script_path}}" type="submit">{{us.script_title}}</a>
+                  </div>
+            {% endfor %}
+      
+          {% else %}
+            <p style="color: red;font-size: 1.2em;">No Data is available</p>
+          {% endif %}
+      
+      </div>
+  </div>
+  <div class="Script-editor">
+      <h2>Script Editor</h2>
+      <select name="Options" id="myId" style="display:none;z-index: 9999999;">
+        <button id="button0"></button><br>
+        <button id="button1"></button>
+      </select>
+      <form class="form" name="form" enctype = "multipart/form-data" method = "POST">
+        {% csrf_token %}
+        <input type="text" name="ScriptName" id="FileName" value="{{script_title}}" placeholder="FILE NAME"required><br>
+        <textarea class="tinymce" cols="30" data-mce-conf="{&quot;cleanup_on_startup&quot;: true, &quot;custom_undo_redo_levels&quot;: 20, &quot;selector&quot;: &quot;textarea&quot;, &quot;theme&quot;: &quot;silver&quot;, &quot;plugins&quot;: &quot;\n            textcolor save link image media preview codesample contextmenu\n            table code lists fullscreen  insertdatetime  nonbreaking\n            contextmenu directionality searchreplace wordcount visualblocks\n            visualchars code fullscreen autolink lists  charmap print  hr\n            anchor pagebreak\n            &quot;, &quot;toolbar1&quot;: &quot;\n            fullscreen preview bold italic underline | fontselect,\n            fontsizeselect  | forecolor backcolor | alignleft alignright |\n            aligncenter alignjustify | indent outdent | bullist numlist table |\n            | link image media | codesample |\n            &quot;, &quot;toolbar2&quot;: &quot;\n            visualblocks visualchars |\n            charmap hr pagebreak nonbreaking anchor |  code |\n            &quot;, &quot;contextmenu&quot;: &quot;formats | link image&quot;, &quot;menubar&quot;: true, &quot;statusbar&quot;: true, &quot;spellchecker_languages&quot;: &quot;Afrikaans=af,Arabic / Algerian Arabic=ar,Asturian=as,Azerbaijani=az,Bulgarian=bg,Belarusian=be,Bengali=bn,Breton=br,Bosnian=bs,Catalan=ca,Czech=cs,Welsh=cy,Danish=da,German=de,Lower Sorbian=ds,Greek=el,+English / Australian English / British English=en,Esperanto=eo,Spanish / Argentinian Spanish / Colombian Spanish / Mexican Spanish / Nicaraguan Spanish / Venezuelan Spanish=es,Estonian=et,Basque=eu,Persian=fa,Finnish=fi,French=fr,Frisian=fy,Irish=ga,Scottish Gaelic=gd,Galician=gl,Hebrew=he,Hindi=hi,Croatian=hr,Upper Sorbian=hs,Hungarian=hu,Armenian=hy,Interlingua=ia,Indonesian=id,Igbo=ig,Ido=io,Icelandic=is,Italian=it,Japanese=ja,Georgian / Kabyle=ka,Kazakh=kk,Khmer=km,Kannada=kn,Korean=ko,Kyrgyz=ky,Luxembourgish=lb,Lithuanian=lt,Latvian=lv,Macedonian=mk,Malayalam=ml,Mongolian=mn,Marathi=mr,Burmese=my,Norwegian Bokm\u00e5l=nb,Nepali=ne,Dutch=nl,Norwegian Nynorsk=nn,Ossetic=os,Punjabi=pa,Polish=pl,Portuguese / Brazilian Portuguese=pt,Romanian=ro,Russian=ru,Slovak=sk,Slovenian=sl,Albanian=sq,Serbian / Serbian Latin=sr,Swedish=sv,Swahili=sw,Tamil=ta,Telugu=te,Tajik=tg,Thai=th,Turkmen=tk,Turkish=tr,Tatar=tt,Udmurt=ud,Ukrainian=uk,Urdu=ur,Uzbek=uz,Vietnamese=vi,Simplified Chinese / Traditional Chinese=zh&quot;, &quot;directionality&quot;: &quot;ltr&quot;, &quot;mode&quot;: &quot;exact&quot;, &quot;strict_loading_mode&quot;: 1, &quot;elements&quot;: &quot;id_bodyTxt&quot;}" id="id_bodyTxt" name="bodyTxt" rows="30">
+        {% if ln %}
+          {{stra|linebreaks}}
+          {% else %}
+          {{stra}}
+          {%endif%}
+        </textarea>
+        <button  type = "submit" value = "save" >save</button>
+    </form>
+  </div>        
+</div>
+
+
+<!--JAVASCRIPT-->
+
+
+
+
+<script>
+ 
+  
+  var myfile="";
+  $('#MyScript').on( 'change', function() {
+     myfile= $( this ).val();
+     var ext = myfile.split('.').pop();
+     if(ext=="pdf"){
+     } else{
+         alert("only PDF files allowed");
+         location.reload()
+     }
+  });
+  </script>
+
+
+{% endblock %}
+
+

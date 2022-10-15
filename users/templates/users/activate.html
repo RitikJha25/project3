@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Hi {{user.first_name}}, 
+
+Warm greetings and hearty congratulations for choosing to register at www.mynextfilm.com
+
+You have just taken a giant leap in your destined journey of fulfilling your most cherished film-making related dreams. 
+
+The click on the link below will take you closer into that future of having umpteen box office hits and countless Cine awards.
+
+http://www.mynewfilm.com/{% url 'activate' uidb64=uid token=token %}
+
+My Next Film
+
+{% endautoescape %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .container{    
+            padding: 1em;
+            margin: 1em;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .content{
+            display: grid;
+            grid-template-columns: auto auto auto auto auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feedback Form Data</title>
+</head>
+<body>
+    <h2 style="text-align: center;">My Edited Scripts</h2>
+                {% if webpp_list %}
+                {% for us in webpp_list %}                
+                <div class="content">
+                        <div class="{{us.Name}}"><strong>Name: {{us.Name}} <br>Rating: {{us.RateValue}}/5 <br> Description: {{us.Description}} </strong></div>
+                                
+                    {% endfor %}
+                </div>
+                {% else %}
+                  <p style="color: red;font-size: 1.2em;">No Data is available</p>
+                {% endif %}
+            
+            </div>
+</body>
+</html>
